@@ -6,7 +6,7 @@ After compilation, the '.exe' file can be executed from the terminal with the fo
 .\LowcrossingMatchings.exe -N 5000 -D 3 -I Grid
 * -N : number of input points (default 2000)
 * -D : dimension (default 5)
-* -I : input type;   possible values : Moment, Grid, Box 
+* -I : input type;   possible values : Moment, Grid, Box (default Moment)
 
 ## License
   This program is free software: you can redistribute it and/or modify
