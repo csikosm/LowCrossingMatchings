@@ -2,6 +2,7 @@
 
 ## How to run
 After compilation, the '.exe' file can be executed from the terminal with the following command line arguments:
+
 .\LowcrossingMatchings.exe -N 5000 -D 3 -I Grid
 * -N : number of input points (default 2000)
 * -D : dimension (default 5)
