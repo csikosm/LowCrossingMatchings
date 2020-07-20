@@ -258,9 +258,17 @@ struct myEdges { 					// structure for the edge set
 
 	void test_hyperplane(myPlane *h, _uindex num) 
 	{
-		for (size_t i = 0; i < num; i++) {
-			myEdge *e = sample_edge();
-			if (h->intersectEdge(e)) increment_weight(e);
+		if( num > CE_sampling.size())
+		{
+			for ( size_t i =0; i < CE_sampling.size(); i++)
+				if (h->intersectEdge(CE_sampling[i])) increment_weight(CE_sampling[i]);
+		}
+		else
+		{
+			for (size_t i = 0; i < num; i++) {
+				myEdge *e = sample_edge();
+				if (h->intersectEdge(e)) increment_weight(e);
+			}
 		}
 	}
 };
@@ -346,10 +354,20 @@ struct myPlanes {					// structure for hyperplane set
 			output.push_back(CH[maxCH_index][i]);
 	}
 
-	void test_edge(myEdge *e, _uindex num) {
-		for (size_t r = 0; r < num; r++) {
-			myPlane *h = sample_plane();
-			if (h->intersectEdge(e)) increment_weight(h);
+	
+	void test_edge(myEdge *e, _uindex num) 
+	{
+		if( num > CH_sampling.size())
+		{
+			for ( size_t i =0; i < CH_sampling.size(); i++)
+				if (CH_sampling[i]->intersectEdge(e)) increment_weight(CH_sampling[i]);
+		}
+		else
+		{
+			for (size_t r = 0; r < num; r++) {
+				myPlane *h = sample_plane();
+				if (h->intersectEdge(e)) increment_weight(h);
+			}
 		}
 	}
 };
@@ -410,11 +428,11 @@ void computeMatching_iteration(vector<myVec *> & input, vector<myPlanes *> & tes
 		vector<thread> Threads;
 
 		for (size_t t = 0; t < presamplededges.size(); t++)
-			Threads.push_back(thread(&myEdges::test_hyperplane, presamplededges[t], random_hyperplane, min((_uindex)(_EDGES_SAMPLED_PER_ITERATION / (_float) presamplededges.size()), (_uindex) presamplededges[t]->CE_sampling.size()) ) );
+			Threads.push_back(thread(&myEdges::test_hyperplane, presamplededges[t], random_hyperplane, (_uindex)(_EDGES_SAMPLED_PER_ITERATION / (_float) presamplededges.size()) ) );
 
 		if (i >= curr_threshold) {
 			for (size_t t = 0; t < testplanes.size(); t++)
-				Threads.push_back(thread(&myPlanes::test_edge, testplanes[t], random_edge, min((_uindex)(_PLANES_SAMPLED_PER_ITERATION / (_float)testplanes.size()), (_uindex) testplanes[t]->CH_sampling.size() )));
+				Threads.push_back(thread(&myPlanes::test_edge, testplanes[t], random_edge, (_uindex)(_PLANES_SAMPLED_PER_ITERATION / (_float)testplanes.size()) ));
 		}
 
 		for (size_t t = 0; t < Threads.size(); t++) Threads[t].join();
