@@ -9,6 +9,9 @@ After compilation, the '.exe' file can be executed from the terminal with the fo
 * -I : input type;   possible values : Moment, Grid, Box (default Moment)
 * -T : number of threads (default 10)
 
+## Dependencies
+__Eigen__ C++ template library for linear algebra <http://eigen.tuxfamily.org/>
+
 ## License
   This program is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
