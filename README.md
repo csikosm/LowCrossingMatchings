@@ -3,11 +3,11 @@
 ## How to run
 After compilation, the '.exe' file can be executed from the terminal with the following command line arguments:
 
-.\LowcrossingMatchings.exe -N 5000 -D 3 -I Grid -T 24
+.\LowcrossingMatchings.exe -N 5000 -D 3 -I Grid -THREADS 24
 * -N : number of input points (default 2000)
 * -D : dimension (default 5)
 * -I : input type;   possible values : Moment, Grid, Box (default Moment)
-* -T : number of threads (default 10)
+* -THREADS : number of threads (default 24)
 
 ## Dependencies
 __Eigen__ C++ template library for linear algebra <http://eigen.tuxfamily.org/>
